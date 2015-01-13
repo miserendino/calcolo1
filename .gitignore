@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# Temi di esame
+*.pdf
+*.doc
+*.docx
+*.odf
