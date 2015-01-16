@@ -11,7 +11,10 @@ using namespace std;
     void quicksort( unsigned int number_of_data, TD* v);
         template <typename TD>
     void scambia( TD*, TD*);
-
+        template <typename TD>
+    void loadR2(TD *,TD *,unsigned int);
+        template <typename TD>
+void load_dispari(TD *, unsigned int);
     unsigned int conta();
 
     template <typename TD>
@@ -76,12 +79,12 @@ unsigned int conta(){
 input.close();       //ricordarsi di chiudere lo stream
 }
 
-//funzione carica solo elementi di posto dispari
+//funzione carica solo elementi di posto dispari di un array monodimensionale
 
 template <typename TD>
 void load_dispari(TD * v, unsigned int number_of_data){     //number_of_data rappresenta tutti i valori dell'array!!!
   std::ifstream input;
-  std::cout << "inserisci il file da cui vuoi estrarre i tuoi " << (number_of_data/2) << " numeri" << std::endl;
+  std::cout << "inserisci il file da cui vuoi estrarre i tuoi " << number_of_data/2 << " numeri" << std::endl;
   char namefile[30];
   cin >> namefile;
   TD tmp;
@@ -97,4 +100,27 @@ for(unsigned int i=0;i<number_of_data;++i){
   }
   input.close();
 }
+
+//funzione che carica coppie di dati (punto in R2)
+
+template <typename TD>
+void loadR2(TD* x,TD* y,unsigned int dim){          //dim indica la lunghezza o solo delle ascisse o solo delle coordinate!
+  std::ifstream input;
+  std::cout << "inserisci il file da cui vuoi estrarre le " << dim << " coppie di numeri" << std::endl;
+  char namefile[30];
+  cin >> namefile;
+  input.open(namefile);
+  for(unsigned int e=0;e<dim;++e){
+    input >> x[e] >> y[e];
+#ifdef DEBUG 
+    std::cout << x[e] << "  " << y[e] << std::endl;
+#endif
+  }
+  input.close();
+}
+template <typename TD>
+struct puntoR2
+{
+  TD* x,y;
+};
 #endif
