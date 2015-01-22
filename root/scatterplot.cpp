@@ -21,7 +21,7 @@ double xcoord[NUMBER_OF_FILE];
 double ycoord[NUMBER_OF_FILE];
   
 
-std::ifstream input("prova");
+std::ifstream input("dati.dat");
 
 for(int i=0;i<NUMBER_OF_FILE;i++){
   input >> xcoord[i];

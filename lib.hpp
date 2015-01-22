@@ -7,13 +7,21 @@ using namespace std;
 //dichiarazione di tutte le funzioni
 
         template <typename TD>                                      /* TD sta per type of data */
-    void bubblesort(TD*, unsigned int number_of_data);
+    void bubblesort(TD*, unsigned int );
         template <typename TD>
-    void quicksort1(TD*, unsigned int number_of_data);
+    void quicksort1(TD*, unsigned int );
         template <typename TD>
-    void quicksort2(TD*, unsigned int number_of_data);
+    void quicksort2(TD*, unsigned int );
         template <typename TD>
     void scambia( TD*, TD*);
+        template <typename TD>
+    void bubblesortx2dimdcr(TD* x,TD* y, unsigned int);
+        template <typename TD>
+    void bubblesortx2dimcr(TD* x,TD* y, unsigned int);
+        template <typename TD>
+    void bubblesorty2dimcr(TD* x,TD* y, unsigned int);
+        template <typename TD>
+    void bubblesorty2dimdcr(TD* x,TD* y, unsigned int);
         template <typename TD>
     void loadR2(TD *,TD *,unsigned int);
         template <typename TD>
@@ -57,6 +65,75 @@ void bubblesort(TD* v, unsigned int number_of_data) {
   }
 }
 
+// funzione bubblesort per ordinate in modo crescente punti in R2 rispetto all'ascissa
+
+template <typename TD>
+void bubblesortx2dimcr(TD* x,TD* y, unsigned int number_of_data) {
+  for( int i=0; i<number_of_data-1; ++i ) {
+    if ( x[i]>x[i+1] ) {
+      for (int j=i+1; j>0; --j) {
+	if (x[j]<x[j-1] ){
+    swap(x[j],x[j-1]);
+    swap(y[j],y[j-1]);
+  }
+    else break;
+      }
+    }
+  }
+}
+
+// funzione bubblesort per ordinate in modo crescente punti in R2 rispetto all'ordinata
+
+template <typename TD>
+void bubblesorty2dimcr(TD* x,TD* y, unsigned int number_of_data) {
+  for( int i=0; i<number_of_data-1; ++i ) {
+    if ( y[i]>y[i+1] ) {
+      for (int j=i+1; j>0; --j) {
+	if (y[j]<y[j-1] ){
+    swap(x[j],x[j-1]);
+    swap(y[j],y[j-1]);
+  }
+    else break;
+      }
+    }
+  }
+}
+
+// funzione bubblesort per ordinate in modo decrescente punti in R2 rispetto all'ascissa
+
+template <typename TD>
+void bubblesortx2dimdcr(TD* x,TD* y, unsigned int number_of_data) {
+  for( int i=0; i<number_of_data-1; ++i ) {
+    if ( x[i]<x[i+1] ) {
+      for (int j=i+1; j>0; --j) {
+	if (x[j]>x[j-1] ){
+    swap(x[j],x[j-1]);
+    swap(y[j],y[j-1]);
+  }
+    else break;
+      }
+    }
+  }
+}
+
+
+// funzione bubblesort per ordinate in modo decrescente punti in R2 rispetto all'ordinata
+
+template <typename TD>
+void bubblesorty2dimdcr(TD* x,TD* y, unsigned int number_of_data) {
+  for( int i=0; i<number_of_data-1; ++i ) {
+    if ( y[i]<y[i+1] ) {
+      for (int j=i+1; j>0; --j) {
+	if (y[j]>y[j-1] ){
+    swap(x[j],x[j-1]);
+    swap(y[j],y[j-1]);
+  }
+    else break;
+      }
+    }
+  }
+}
+
 // quicksort che ordina in modo crescente
 
 template <typename TD>
@@ -66,7 +143,7 @@ void quicksort1(TD* v,unsigned int number_of_data) {
    if (number_of_data < 2) return;
    separator = v[number_of_data/2];
    j=number_of_data-1;
-   while (j>i) {
+    while (j>i) {
      while ( v[i]<separator ) i++;
      while ( v[j]>separator ) j--;
      if (i<j) {
