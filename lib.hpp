@@ -32,7 +32,9 @@ using namespace std;
         template <typename TD>
     void loadyerr(TD *,TD*, TD*,unsigned int);
         template <typename TD>
-    void load(TD*,unsigned int dim);
+    void load(TD*,unsigned int );
+        template <typename TD>
+    void oddevensort(TD *, int );
         template <typename TD>
   void scambia( TD* a,TD* b) 
   {
@@ -55,9 +57,9 @@ struct puntoR2
 //funzioni di ordinamento
 template <typename TD>
 void bubblesort(TD* v, unsigned int number_of_data) {
-  for( int i=0; i<number_of_data-1; ++i ) {
-    if ( v[i]>v[i+1] ) {
-      for (int j=i+1; j>0; --j) {
+  for( int i=0; i<number_of_data-1; ++i ) {   
+    if ( v[i]>v[i+1] ) {                         // in tutte queste funzioni bubblesort abbiamo nel ciclo for
+      for (int j=i+1; j>0; --j) {                // number_of_data-1 perchè con l'if raggiungiamo l'i+1esimo vettore
 	if (v[j]<v[j-1] )swap(v[j],v[j-1]);
         else break;
       }
@@ -80,6 +82,26 @@ void bubblesortx2dimcr(TD* x,TD* y, unsigned int number_of_data) {
       }
     }
   }
+}
+
+// funzione che scambia tutti gli elementi di posto dispari con i rispettivi elementi di posto pari
+
+template <typename TD>
+void oddevensort(TD a[], int number_of_data)
+{
+   for (int i = 0; i < number_of_data; ++i)
+    {
+      if (i & 1)
+        {
+      for (int j = 2; j < number_of_data; j+=2)
+         if (a[j] < a[j-1])
+         swap(a[j-1], a[j]);
+      else
+      for (int j = 1; j < number_of_data; j+=2)
+         if (a[j] > a[j-1])
+         swap(a[j-1], a[j]);
+        }
+    }
 }
 
 // funzione bubblesort per ordinate in modo crescente punti in R2 rispetto all'ordinata
@@ -197,8 +219,8 @@ unsigned int conta(){
     ++number_of_data;
     input >> tmp;
   }
-  return number_of_data;
 input.close();       //ricordarsi di chiudere lo stream
+  return number_of_data;
 }
 
 //funzione carica solo elementi di posto dispari di un array monodimensionale
@@ -206,7 +228,7 @@ input.close();       //ricordarsi di chiudere lo stream
 template <typename TD>
 void load_dispari(TD * v, unsigned int number_of_data){     //number_of_data rappresenta tutti i valori dell'array!!!
   std::ifstream input;
-  std::cout << "inserisci il file da cui vuoi estrarre i tuoi " << number_of_data/2 << " numeri" << std::endl;
+  std::cout << "inserisci il file da cui vuoi estrarre i tuoi " << number_of_data/2 << " numeri (il primo elemento dell'array ha posto 0)" << std::endl;
   char namefile[30];
   cin >> namefile;
   TD tmp;

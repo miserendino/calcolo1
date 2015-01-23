@@ -32,3 +32,6 @@
 *.doc
 *.docx
 *.odf
+
+#Schifezze gprof
+gmon.out
