@@ -18,6 +18,7 @@ else {
   Odd=NN/2;
   Even=NN/2;
 }
+
 unsigned int l=0,j=0;
 double odd[Odd],even[Even];
 std::cout << "I valori di Odd e Even sono " << std::endl;
@@ -40,11 +41,27 @@ for(int i=0;i<NN;++i){
 
 
 quicksort1(even,Even);
-quicksort1(odd,Odd);
-#if 0
-for(int i=0;i<NN/2;++i){
-  std::cout << even[i] << " " << odd[i]  << std::endl;
+quicksort2(odd,Odd);
+double nuovo[NN];
+unsigned int w=0,q=0;
+for(int i=0;i<NN;++i){
+ while(i%2==0){
+  nuovo[i]=even[w];
+   ++w;
+   break;
+     }        
+ while(i%2!=0)
+   {
+     nuovo[i]=odd[q];
+     ++q;
+     break;
+    } 
+ }
+
+
+for(int i=0;i<NN;++i){
+  std::cout << "Al posto " << i << " abbiamo " << nuovo[i] << std::endl;
 }
-#endif
+
   return 0;
 }
