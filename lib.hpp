@@ -15,7 +15,9 @@ using namespace std;
         template <typename TD>
     void scambia( TD*, TD*);
         template <typename TD>
-    void strangesort(TD*, unsigned int);
+    void strangesort1(TD*, unsigned int);
+        template <typename TD>
+    void strangesort2(TD*, unsigned int);
         template <typename TD>
     void bubblesortx2dimdcr(TD* x,TD* y, unsigned int);
         template <typename TD>
