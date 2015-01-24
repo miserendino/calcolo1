@@ -15,6 +15,8 @@ using namespace std;
         template <typename TD>
     void scambia( TD*, TD*);
         template <typename TD>
+    void strangesort(TD*, unsigned int);
+        template <typename TD>
     void bubblesortx2dimdcr(TD* x,TD* y, unsigned int);
         template <typename TD>
     void bubblesortx2dimcr(TD* x,TD* y, unsigned int);
@@ -102,6 +104,152 @@ void oddevensort(TD a[], int number_of_data)
          swap(a[j-1], a[j]);
         }
     }
+}
+
+// funzione che dato un vettore unidimensionale, ordina in ordine decrescente tutti gli elementi di posto pari e in ordine crescente tutti gli elementi di posto dispari
+
+template<typename TD>
+void strangesort1(TD v[],unsigned int number_of_data){
+unsigned int Odd,Even;
+  if(number_of_data%2==0){            
+    Odd=number_of_data/2;             // capisco quanti sono gli elementi pari e dispari
+    Even=number_of_data/2;
+  }
+  else {
+   Odd=number_of_data/2;
+   Even=number_of_data/2+1;
+  }
+unsigned int l=0,j=0,w=0,q=0;
+TD odd[Odd],even[Even];
+#ifdef DEBUG
+std::cout << "Il valore di Odd è " << Odd << " , il valore di Even è " << Even << std::endl;
+#endif
+for(unsigned int i=0;i<number_of_data;++i){
+ while(i%2==0){
+#ifdef DEBUG
+   std::cout << "Il numero corrispondente a un posto pari è " << v[i] <<  std::endl;
+#endif
+   even[j]=v[i];
+   ++j;
+   break;
+     }        
+ while(i%2!=0)
+   {
+#ifdef DEBUG
+   std::cout << "Il numero corrispondente a un posto dispari è " << v[i] <<  std::endl;
+#endif
+   odd[l]=v[i];
+     ++l;
+     break;
+    } 
+ }
+
+quicksort2(even,Even);   //ordino in ordine crescente gli elementi pari
+quicksort1(odd,Odd);     //ordino in ordine decrescente gli elementi dispari
+#ifdef DEBUF
+std::cout << "Ecco i numeri pari" << std::endl;
+for(unsigned int i=0;i<Even;++i){
+  std::cout << even[i] << std::endl;
+}
+std::cout << "Ecco i numeri dispari" << std::endl;
+for(unsigned int i=0;i<Odd;++i){
+  std::cout << odd[i] << std::endl;
+}
+#endif
+for(unsigned int i=0;i<number_of_data;++i){
+ while(i%2==0){
+  v[i]=even[w];           //riassegno i nuovi elementi riordinati al loro posto
+   ++w;
+   break;
+     }        
+ while(i%2!=0)
+   {
+     v[i]=odd[q];
+     ++q;
+     break;
+      } 
+    }
+
+std::cout << endl;
+std::cout << "Ecco ordinati in ordine crescente tutti gli elementi di posto dispari e in ordine decrescente tutti gli elementi di posto pari" << std::endl;
+std::cout << std::endl;
+
+for(unsigned int i=0;i<number_of_data;++i){
+  std::cout << "Al posto " << i << " abbiamo " << v[i] << std::endl;
+  }
+}
+
+// funzione che dato un vettore unidimensionale, ordina in ordine crescente tutti gli elementi di posto pari e in ordine decrescente tutti gli elementi di posto dispari
+
+template<typename TD>
+void strangesort2(TD v[],unsigned int number_of_data){
+unsigned int Odd,Even;
+  if(number_of_data%2==0){            
+    Odd=number_of_data/2;             // capisco quanti sono gli elementi pari e dispari
+    Even=number_of_data/2;
+  }
+  else {
+   Odd=number_of_data/2;
+   Even=number_of_data/2+1;
+  }
+unsigned int l=0,j=0,w=0,q=0;
+TD odd[Odd],even[Even];
+#ifdef DEBUG
+std::cout << "Il valore di Odd è " << Odd << " , il valore di Even è " << Even << std::endl;
+#endif
+for(unsigned int i=0;i<number_of_data;++i){
+ while(i%2==0){
+#ifdef DEBUG
+   std::cout << "Il numero corrispondente a un posto pari è " << v[i] <<  std::endl;
+#endif
+   even[j]=v[i];
+   ++j;
+   break;
+     }        
+ while(i%2!=0)
+   {
+#ifdef DEBUG
+   std::cout << "Il numero corrispondente a un posto dispari è " << v[i] <<  std::endl;
+#endif
+   odd[l]=v[i];
+     ++l;
+     break;
+    } 
+ }
+
+quicksort1(even,Even);   //ordino in ordine crescente gli elementi pari
+quicksort2(odd,Odd);     //ordino in ordine decrescente gli elementi dispari
+#ifdef DEBUF
+std::cout << "Ecco i numeri pari" << std::endl;
+for(unsigned int i=0;i<Even;++i){
+  std::cout << even[i] << std::endl;
+}
+std::cout << "Ecco i numeri dispari" << std::endl;
+for(unsigned int i=0;i<Odd;++i){
+  std::cout << odd[i] << std::endl;
+}
+#endif
+for(unsigned int i=0;i<number_of_data;++i){
+ while(i%2==0){
+  v[i]=even[w];           //riassegno i nuovi elementi riordinati al loro posto
+   ++w;
+   break;
+     }        
+ while(i%2!=0)
+   {
+     v[i]=odd[q];
+     ++q;
+     break;
+      } 
+    }
+
+std::cout << endl;
+std::cout << "Ecco ordinati in ordine crescente tutti gli elementi di posto pari e in ordine decrescente tutti gli elementi di posto dispari" << std::endl;
+std::cout << std::endl;
+
+for(unsigned int i=0;i<number_of_data;++i){
+  std::cout << "Al posto " << i << " abbiamo " << v[i] << std::endl;
+  }
 }
 
 // funzione bubblesort per ordinate in modo crescente punti in R2 rispetto all'ordinata
