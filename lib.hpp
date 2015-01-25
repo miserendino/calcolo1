@@ -1,6 +1,9 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>                          // ATTENZIONE abilitare il supporto allo standard 11 nel makefile
+#include <random>                           // ATTENZIONE abilitare il support allo standard 11 nel makefile
 #include <utility>
+#include <chrono>
 using namespace std;
 #ifndef __LIB_HPP__
 
@@ -13,14 +16,12 @@ using namespace std;
         template <typename TD>
     void quicksort2(TD*, unsigned int );
         template <typename TD>
-    void scambia( TD*, TD*);
-        template <typename TD>
     void strangesort1(TD*, unsigned int);
         template <typename TD>
     void strangesort2(TD*, unsigned int);
         template <typename TD>
-    void bubblesortx2dimdcr(TD* x,TD* y, unsigned int);
-        template <typename TD>
+    void bubblesortx2dimdcr(TD* x,TD* y, unsigned int);           // Negli algoritmi bidimensionali la variabile number_of_data si riferisce agli elementi o delle sole ascisse 
+        template <typename TD>                                        // o delle sole ordinate
     void bubblesortx2dimcr(TD* x,TD* y, unsigned int);
         template <typename TD>
     void bubblesorty2dimcr(TD* x,TD* y, unsigned int);
@@ -40,14 +41,13 @@ using namespace std;
         template <typename TD>
     void oddevensort(TD *, int );
         template <typename TD>
-  void scambia( TD* a,TD* b) 
-  {
-    TD temp;
-    temp=*a;
-    *a=*b;
-    *b=temp;
-}
-
+    void double_randomgen(unsigned int,TD*,TD,TD);
+        template <typename TD>
+    void int_randomgen(unsigned int,TD*,TD,TD);
+        template <typename TD>
+    void write_in_file(TD*, unsigned int);
+        template <typename TD>
+    void write_in_fileR2(TD *,TD  *, unsigned int);
 // dichiarazione della struttura punto-bidimensionale
 
 template <typename TD>
@@ -75,7 +75,7 @@ void bubblesort(TD* v, unsigned int number_of_data) {
 
 template <typename TD>
 void bubblesortx2dimcr(TD* x,TD* y, unsigned int number_of_data) {
-  for( int i=0; i<number_of_data-1; ++i ) {
+  for(unsigned int i=0; i<number_of_data-1; ++i ) {
     if ( x[i]>x[i+1] ) {
       for (int j=i+1; j>0; --j) {
 	if (x[j]<x[j-1] ){
@@ -275,7 +275,7 @@ void bubblesorty2dimcr(TD* x,TD* y, unsigned int number_of_data) {
 
 template <typename TD>
 void bubblesortx2dimdcr(TD* x,TD* y, unsigned int number_of_data) {
-  for( int i=0; i<number_of_data-1; ++i ) {
+  for(unsigned int i=0; i<number_of_data-1; ++i ) {
     if ( x[i]<x[i+1] ) {
       for (int j=i+1; j>0; --j) {
 	if (x[j]>x[j-1] ){
@@ -497,4 +497,75 @@ for(unsigned int a=0;a<dim;++a){
 input.close();
 }
 
+// funzione che mi genera number_of_data numeri casuali
+
+template <typename TD>
+void double_randomgen(unsigned int number_of_data, TD* v, TD min, TD max){
+  std::default_random_engine generator;
+std::uniform_real_distribution<TD> distribution(min,max);  // ottengo dei numeri casuali tra 0 e 1
+std::cout << "Distribuzione uniforme di " << number_of_data << " numeri reali da " << min << " a " << max << std::endl;
+std::cout << std::endl;
+  std::cout << std::fixed; std::cout.precision(1);
+    for (unsigned int i=0; i<number_of_data; ++i) {
+          TD number = distribution(generator);
+          v[i]=number;
+          std::cout << v[i] << std::endl; 
+          }
+}
+
+template <typename TD>
+void int_randomgen(unsigned int number_of_data, TD* v, TD min, TD max){       // ATTENZIONE: il puntatore deve essere inizializzato come un puntatore a interi, come del resto max e min!
+  std::default_random_engine generator;
+std::uniform_int_distribution<TD> distribution(min,max);  // ottengo dei numeri casuali tra 0 e 1
+std::cout << "Distribuzione uniforme di " << number_of_data << " numeri interi da " << min << " a " << max << std::endl;
+std::cout << std::endl;
+    for (unsigned int i=0; i<number_of_data; ++i) {
+          TD number = distribution(generator);
+          v[i]=number;
+          std::cout << v[i] << std::endl; 
+          }
+}
+
+// funzione che scrive un vettore di lunghezza number_of_data su di un file il cui nome viene scelto dall'utente
+
+template <typename TD>
+void write_in_file(TD* v, unsigned int number_of_data){
+  char namefile[64];
+  std::cout << "Scegliere come chiamare il file in cui si scriveranno i dati" << std::endl;
+  std::cin >> namefile;
+  std::ofstream output;
+    output.open(namefile,std::ofstream::trunc);        // tutto quello che c'era scritto prima nel file viene automaticamente cancellato
+    while(!output.good()){
+      std::cout << "C'è stato un errore nell'apertura del file, si prega di reinserire il nome del file" << std::endl;
+      cin >> namefile;
+    output.open(namefile,std::ofstream::trunc);        // tutto quello che c'era scritto prima nel file viene automaticamente cancellato
+    }
+    std::setfill(" ");                         // rendere l'ouput presentabile
+    std::setw(6);
+for(unsigned int i=0;i<number_of_data;++i){
+    output << v[i] << std::endl;
+      }
+output.close();           //ricordarsi di chiudere il buffer
+}
+
+
+template <typename TD>
+void write_in_fileR2(TD *x,TD  *y, unsigned int number_of_data){
+  char namefile[64];
+  std::cout << "Scegliere come chiamare il file in cui si scriveranno i dati" << std::endl;
+  std::cin >> namefile;
+  std::ofstream output;
+    output.open(namefile,std::ofstream::trunc);        // tutto quello che c'era scritto prima nel file viene automaticamente cancellato
+    while(!output.good()){
+      std::cout << "C'è stato un errore nell'apertura del file, si prega di reinserire il nome del file" << std::endl;
+      cin >> namefile;
+    output.open(namefile,std::ofstream::trunc);        // tutto quello che c'era scritto prima nel file viene automaticamente cancellato
+    }
+    std::setfill(" ");                         // rendere l'ouput presentabile
+    std::setw(6);
+for(unsigned int i=0;i<number_of_data;++i){
+    output << x[i] << '\t' << y[i] << std::endl;
+      }
+output.close();         // ricordarsi di chiudere il buffer
+}
 #endif
