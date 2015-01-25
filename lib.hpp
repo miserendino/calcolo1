@@ -9,6 +9,10 @@ using namespace std;
 
 //dichiarazione di tutte le funzioni
 
+        template <typename TD>
+    void selectionsort1(TD *, unsigned int);
+        template <typename TD>
+    void selectionsort2(TD *, unsigned int);
         template <typename TD>                                      /* TD sta per type of data */
     void bubblesort(TD*, unsigned int );
         template <typename TD>
@@ -71,6 +75,29 @@ void bubblesort(TD* v, unsigned int number_of_data) {
   }
 }
 
+// selection sort crescente
+
+template <typename TD>
+void selectionsort1(TD *v, unsigned int number_of_data){
+    for (unsigned int i = 0; i < number_of_data -1; i++)
+          for (unsigned int j = i+1; j < number_of_data; j++)
+                  if (v[i] > v[j])
+                  {
+                    swap(v[i],v[j]);
+                  }
+}
+
+// selection sort decrescente
+
+template <typename TD>
+void selectionsort2(TD *v, unsigned int number_of_data){
+    for (unsigned int i = 0; i < number_of_data -1; i++)
+          for (unsigned int j = i+1; j < number_of_data; j++)
+                  if (v[i] < v[j])
+                  {
+                    swap(v[i],v[j]);
+                  }
+}
 // funzione bubblesort per ordinate in modo crescente punti in R2 rispetto all'ascissa
 
 template <typename TD>
